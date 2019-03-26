@@ -1,7 +1,7 @@
 Summary: Public keys for third-party updates
 Name: vendor-update-keys
 Version: 1.3.6
-Release: 1.1
+Release: 1.1%{dist}
 URL: https://github.com/xcp-ng-rpms/vendor-update-keys
 Source0: RPM-GPG-KEY-AMD-MXGPU
 Source1: RPM-GPG-KEY-BITDEFENDER
