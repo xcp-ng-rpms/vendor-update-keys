@@ -1,7 +1,7 @@
 Summary: Public keys for third-party updates
 Name: vendor-update-keys
 Version: 1.3.7
-Release: 1.1%{?dist}
+Release: 1.2%{?dist}
 URL: https://github.com/xcp-ng-rpms/vendor-update-keys
 Source0: RPM-GPG-KEY-AMD-MXGPU
 Source1: RPM-GPG-KEY-BITDEFENDER
@@ -37,6 +37,10 @@ install -m 0644 %{SOURCE9} %{buildroot}/etc/firstboot.d/data/keys/
 /etc/firstboot.d/data/keys/*
 
 %changelog
+* Thu Jul 02 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.3.7-1.2
+- Rebuild for XCP-ng 8.2
+- CH 8.2's proprietary new script and systemd service not imported
+
 * Fri Dec 20 2019 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.3.7-1.1
 - Update for XCP-ng 8.1
 - Add RPM-GPG-KEY-BRCM-ECD
