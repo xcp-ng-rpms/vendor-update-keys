@@ -42,11 +42,6 @@ install -m 0755 %{SOURCE20} %{buildroot}%{_bindir}/import-trusted-keys
 install -d %{buildroot}%{_unitdir}
 install -m 0644 %{SOURCE21} %{buildroot}%{_unitdir}/import-trusted-keys.service
 
-%files
-/etc/firstboot.d/data/keys/*
-%{_bindir}/import-trusted-keys
-%{_unitdir}/import-trusted-keys.service
-
 %post
 %systemd_post import-trusted-keys.service
 
@@ -55,6 +50,11 @@ install -m 0644 %{SOURCE21} %{buildroot}%{_unitdir}/import-trusted-keys.service
 
 %postun
 %systemd_postun import-trusted-keys.service
+
+%files
+/etc/firstboot.d/data/keys/*
+%{_bindir}/import-trusted-keys
+%{_unitdir}/import-trusted-keys.service
 
 %changelog
 * Wed Jul 15 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.3.7-1.3
