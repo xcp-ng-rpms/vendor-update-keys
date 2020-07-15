@@ -1,0 +1,47 @@
+#!/bin/sh
+##
+# Import trusted keys used to sign updates
+
+# XCP-ng note: imported and adapted from XCP-ng 8.1's xenserver-firstboot
+# The proprietary vendor-updates-keys package from CH 8.2 also contains
+# that script, but without any licensing information, so our source
+# remains 8.1's xenserver-firstboot's 60-import-keys file.
+# The only changes from that original file are formatting and adapting to the
+# fact that it isn't an sysvinit service anymore.
+# The license of this file, inherited from xenserver-firstboot, is: GPL
+
+gpgopts="--homedir=/opt/xensource/gpg --batch"
+
+set -e
+
+import_required()
+{
+    if [ ! -e /etc/pki/rpm-gpg/$1 ]; then
+       return 0
+    fi
+    if cmp -s  /etc/pki/rpm-gpg/$1 $2; then
+       return 1
+    fi
+    return 0
+}
+
+
+import_key() {
+    keyfile=$1
+    base=$(basename $keyfile)
+    if import_required $base $keyfile; then
+        echo "Importing $base from $keyfile"
+
+        keyhash=$(gpg $gpgopts --with-fingerprint $keyfile | sed -ne 's#^pub  [^ ]\+/\([^ ]\+\).*#\1#p')
+        cp -p $keyfile /etc/pki/rpm-gpg
+        gpg $gpgopts --import $keyfile
+        echo -e "trust\n5\ny\n" | gpg $gpgopts --command-fd 0 --edit-key $keyhash
+    fi
+}
+
+[ -d /etc/firstboot.d/data/keys ] || exit 0
+
+for keyfile in /etc/firstboot.d/data/keys/*; do
+    import_key $keyfile
+done
+

@@ -1,0 +1,12 @@
+[Unit]
+Description=Import GPG keys used by vendors to sign updates
+Before=xapi.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/import-trusted-keys
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
