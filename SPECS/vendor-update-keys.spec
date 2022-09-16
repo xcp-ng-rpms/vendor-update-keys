@@ -1,7 +1,7 @@
 Summary: Public keys for third-party updates
 Name: vendor-update-keys
 Version: 1.3.7
-Release: 1.3%{?dist}
+Release: 1.4%{?dist}
 URL: https://github.com/xcp-ng-rpms/vendor-update-keys
 Source0: RPM-GPG-KEY-AMD-MXGPU
 Source1: RPM-GPG-KEY-BITDEFENDER
@@ -57,6 +57,9 @@ install -m 0644 %{SOURCE21} %{buildroot}%{_unitdir}/import-trusted-keys.service
 %{_unitdir}/import-trusted-keys.service
 
 %changelog
+* Fri Sep 16 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.3.7-1.4
+- Rebuild for XCP-ng 8.3 alpha
+
 * Wed Jul 15 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.3.7-1.3
 - Add import-trusted-keys one-shot service. Replaces old service...
 - ... from xenserver-firstboot (60-import-keys)
